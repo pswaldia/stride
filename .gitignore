@@ -18,6 +18,12 @@ build/
 # Supabase
 .supabase/
 
+# Cursor IDE
+.cursor/
+
+# Project docs (local only)
+docs/
+
 # misc
 .DS_Store
 *.pem
