@@ -1,0 +1,184 @@
+# Stride — Cursor Project Rules
+
+## What this project is
+Stride is a personal marathon training dashboard for a single user. It replaces
+Strava's paid analytics features (heatmaps, training load, route hotspots) with a
+self-hosted app powered by the user's own Strava data, enriched with weather from
+Open-Meteo, and an AI coaching layer via the Anthropic Claude API.
+
+## Tech stack — never deviate from these without discussion
+- **Framework**: Next.js 14 App Router (not Pages Router)
+- **Language**: TypeScript — strict mode, no `any` types
+- **Database**: Supabase (Postgres + PostGIS extension)
+- **ORM**: Supabase JS client — no Prisma, no Drizzle
+- **Maps**: Mapbox GL JS via react-map-gl
+- **Charts**: Recharts
+- **Styling**: Tailwind CSS with CSS variables for the design system
+- **Fonts**: Outfit (headings, logo, data values) + Plus Jakarta Sans (body)
+- **AI**: Anthropic Claude API — model is always `claude-sonnet-4-20250514`
+- **Deployment**: Vercel
+- **CI/CD**: GitHub Actions
+
+## Project structure
+```
+src/
+  app/
+    api/
+      webhooks/strava/     — Strava webhook handler (GET verify + POST events)
+      runs/                — Run CRUD endpoints
+      ai/                  — AI insight endpoints
+    dashboard/             — Home screen (calendar + stats)
+    map/                   — Global heatmap screen
+    training-load/         — CTL/ATL/TSB screen
+    ai-insights/           — AI coaching panel
+    race-predictor/        — Race time predictor
+  components/
+    ui/                    — Shared primitives (Card, Badge, Button, StatCard)
+    calendar/              — TrainingCalendar, DayCell, RunDetailPanel
+    map/                   — HeatmapLayer, HotspotPin, CityPanel
+    charts/                — WeeklyMileageChart, TrainingLoadChart
+    ai/                    — InsightCard, AnomalyFlag, WeatherCorrelation
+  lib/
+    strava/                — Strava OAuth, API client, webhook validation
+    supabase/              — DB client, typed query helpers
+    ai/                    — Claude API wrapper, prompt builders
+    weather/               — Open-Meteo client
+  types/                   — Shared TypeScript interfaces
+  hooks/                   — Custom React hooks
+supabase/
+  migrations/              — SQL migration files (numbered, committed to repo)
+```
+
+## Design system — Chalk & Ember theme
+See docs/DESIGN.md for full token reference. Key values:
+
+```css
+--bg: #FAF9F6;           /* off-white paper — page background */
+--surface: #F0EDE6;      /* warm surface — card backgrounds */
+--surface2: #E8E4DB;     /* deeper surface — inputs, mini-map bg */
+--border: #DDD9D0;       /* default border */
+--border2: #C8C3B8;      /* emphasis border */
+--text: #1A1A1A;         /* primary text */
+--text2: #6B6560;        /* secondary text */
+--text3: #A09890;        /* muted/hint text */
+--accent: #C0392B;       /* ember red — CTAs, active nav, highlights */
+--accent2: #E74C3C;      /* lighter ember — hover states */
+--easy: #2E7D32;         /* easy run colour */
+--tempo: #B45309;        /* tempo run colour */
+--long: #C0392B;         /* long run colour (same as accent) */
+--race: #7C3AED;         /* race day colour */
+```
+
+Dark mode: warm brown darks, ember red accent preserved. Toggle via
+`data-theme="dark"` on `<html>`. CSS variables shift automatically.
+
+Font usage:
+- `font-outfit` — logo, screen headings, stat values, nav items
+- `font-jakarta` — body text, labels, descriptions, table content
+
+## Database schema — key tables
+See docs/SCHEMA.md for full reference.
+
+```
+runs          — strava_id, date, distance_m, duration_s, avg_hr, max_hr,
+                elevation_m, polyline (TEXT), route (GEOMETRY LineString 4326),
+                city, country, run_type (easy/tempo/long/race), tss, raw_json
+laps          — run_id, lap_index, distance_m, elapsed_s, avg_hr, avg_pace_s
+weather       — run_id, temp_c, humidity_pct, wind_kph, conditions, weather_code
+ai_insights   — run_id (nullable), insight_type, prompt_hash, content,
+                model, input_tokens, output_tokens, generated_at
+settings      — singleton row: race_date, threshold_hr, threshold_pace_s,
+                unit_preference (km/mi), strava_connected_at
+```
+
+## Environment variables
+```
+STRAVA_CLIENT_ID
+STRAVA_CLIENT_SECRET
+STRAVA_WEBHOOK_VERIFY_TOKEN
+STRAVA_OWNER_ID
+STRAVA_SUBSCRIPTION_ID
+NEXT_PUBLIC_MAPBOX_TOKEN
+ANTHROPIC_API_KEY
+NEXT_PUBLIC_SUPABASE_URL
+NEXT_PUBLIC_SUPABASE_ANON_KEY
+SUPABASE_SERVICE_ROLE_KEY
+```
+Never hardcode these. Always read from `process.env`. Never expose
+service role key to the client — only use it in server components and
+API routes.
+
+## Coding conventions
+
+### General
+- All components are Server Components by default. Add `'use client'` only
+  when needed (event handlers, browser APIs, hooks with state).
+- Use `async/await` throughout — no `.then()` chains.
+- All DB calls go through `src/lib/supabase/` helper functions — never
+  write raw Supabase queries inline in components or API routes.
+- All Strava API calls go through `src/lib/strava/client.ts`.
+- All Claude API calls go through `src/lib/ai/claude.ts`.
+
+### Error handling
+- API routes always return typed error responses: `{ error: string, code: string }`.
+- Use try/catch on every external API call (Strava, Open-Meteo, Claude).
+- Webhook endpoint must return 200 immediately before any async processing.
+- Never let a webhook handler time out — acknowledge first, process async.
+
+### TypeScript
+- Define all DB types in `src/types/database.ts` — generated from Supabase
+  schema where possible.
+- Define all Strava API response types in `src/types/strava.ts`.
+- No implicit returns in async functions — always explicitly return or throw.
+
+### Tailwind
+- Use design system CSS variables via Tailwind's arbitrary value syntax:
+  `bg-[var(--surface)]`, `text-[var(--text2)]`, `border-[var(--border)]`.
+- Never hardcode hex colours in className strings.
+- Mobile-first — base styles for mobile, `md:` and `lg:` for larger screens.
+
+### Run type classification
+Runs are classified automatically on ingestion:
+- `race` — if Strava `workout_type === 1`
+- `long` — distance >= 16000m AND avg_hr < threshold_hr * 0.85
+- `tempo` — avg_hr > threshold_hr * 0.88 OR avg_pace < threshold_pace * 0.95
+- `easy` — everything else
+When threshold_hr is unknown (settings not set), use 185 as default estimate.
+
+### Training load (CTL/ATL/TSB)
+- TSS per run = estimated from HR zones when power unavailable
+- CTL = 42-day EWMA of daily TSS
+- ATL = 7-day EWMA of daily TSS
+- TSB = CTL - ATL
+- Recompute on every new run ingested — store daily snapshots in DB
+
+## AI features (v1 scope — all reactive, no push)
+1. Training load analysis — 4-week/8-week narrative via Claude
+2. Race predictor — weighted Riegel formula + Claude confidence narrative
+3. Anomaly detection — z-score HR vs pace, Claude explanation
+4. Weather correlation — linear regression pace vs weather, Claude summary
+
+## What is NOT in v1 (do not implement)
+- Apple Health / Apple Watch integration
+- Natural language querying
+- Proactive notifications or email digests
+- Smart weekly plan generator
+- Multi-user support
+- Shoe mileage tracking
+
+## Strava webhook security
+The webhook POST endpoint must:
+1. Verify `owner_id === STRAVA_OWNER_ID`
+2. Verify `subscription_id === STRAVA_SUBSCRIPTION_ID`
+3. Only process `object_type === 'activity'` AND `aspect_type === 'create'`
+4. Return 200 immediately, process async
+
+The webhook GET endpoint (subscription verification) must:
+1. Verify `hub.verify_token === STRAVA_WEBHOOK_VERIFY_TOKEN`
+2. Echo back `hub.challenge`
+
+## Git conventions
+- Branch: `feature/milestone-N-description`
+- Commits: conventional commits — `feat:`, `fix:`, `chore:`, `docs:`
+- Every DB schema change = a new numbered migration file
+- Never commit `.env.local` or any file containing secrets

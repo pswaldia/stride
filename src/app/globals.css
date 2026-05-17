@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500&display=swap');
+
+/* ─── Chalk & Ember — Light mode (default) ─────────────────────────── */
+:root {
+  --bg: #FAF9F6;
+  --surface: #F0EDE6;
+  --surface2: #E8E4DB;
+  --border: #DDD9D0;
+  --border2: #C8C3B8;
+  --text: #1A1A1A;
+  --text2: #6B6560;
+  --text3: #A09890;
+  --accent: #C0392B;
+  --accent2: #E74C3C;
+  --accent-bg: #C0392B12;
+  --accent-border: #C0392B30;
+
+  /* run type */
+  --easy: #2E7D32;
+  --easy-bg: #2E7D3215;
+  --tempo: #B45309;
+  --tempo-bg: #B4530915;
+  --long: #C0392B;
+  --long-bg: #C0392B15;
+  --race: #7C3AED;
+  --race-bg: #7C3AED15;
+
+  /* training load */
+  --ctl-color: #185FA5;
+  --atl-color: #B45309;
+  --tsb-color: #2E7D32;
+
+  /* fonts */
+  --font-outfit: 'Outfit', system-ui, sans-serif;
+  --font-jakarta: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+/* ─── Dark mode ────────────────────────────────────────────────────── */
+[data-theme='dark'] {
+  --bg: #1A120E;
+  --surface: #251810;
+  --surface2: #2E1E14;
+  --border: #3A2418;
+  --border2: #4A3020;
+  --text: #F5EDE6;
+  --text2: #A08070;
+  --text3: #604030;
+  --accent: #E74C3C;
+  --accent2: #FF6B5B;
+  --accent-bg: #E74C3C12;
+  --accent-border: #E74C3C30;
+
+  --easy: #4CAF50;
+  --easy-bg: #4CAF5015;
+  --tempo: #EF9F27;
+  --tempo-bg: #EF9F2715;
+  --long: #E74C3C;
+  --long-bg: #E74C3C15;
+  --race: #A78BFA;
+  --race-bg: #A78BFA15;
+}
+
+/* ─── Base ──────────────────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-jakarta);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text3); }
+
+/* ─── Focus ─────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Mapbox overrides ──────────────────────────────────────────────── */
+.mapboxgl-ctrl-logo { display: none !important; }
+.mapboxgl-ctrl-attrib { display: none !important; }
