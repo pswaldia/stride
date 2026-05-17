@@ -104,3 +104,39 @@ export async function getWeeklyMileage(weeks: number = 8): Promise<
   if (error) throw new Error(`Failed to fetch weekly mileage: ${error.message}`)
   return data ?? []
 }
+
+export async function getRunsInRange(from: string, to: string): Promise<Run[]> {
+  return getRuns({ startDate: from, endDate: to, limit: 200 })
+}
+
+export async function getLatestTrainingLoad(): Promise<import('@/types/database').TrainingLoad | null> {
+  const { data, error } = await supabaseAdmin
+    .from('training_load')
+    .select('*')
+    .order('date', { ascending: false })
+    .limit(1)
+    .single()
+
+  if (error) {
+    if (error.code === 'PGRST116') return null
+    throw new Error(`Failed to fetch training load: ${error.message}`)
+  }
+  return data
+}
+
+export async function getRunWithDetails(
+  id: string
+): Promise<(RunWithWeather & RunWithLaps) | null> {
+  const { data, error } = await supabaseAdmin
+    .from('runs')
+    .select('*, weather(*), laps(*)')
+    .eq('id', id)
+    .order('lap_index', { referencedTable: 'laps', ascending: true })
+    .single()
+
+  if (error) {
+    if (error.code === 'PGRST116') return null
+    throw new Error(`Failed to fetch run details: ${error.message}`)
+  }
+  return data
+}
