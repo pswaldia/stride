@@ -1,7 +1,23 @@
-export default function MapPage() {
+import { getHeatmapRuns, getMapStats, getCityBreakdown, getHotspots } from '@/lib/supabase/queries'
+import { MapClient } from './MapClient'
+
+export default async function MapPage() {
+  const [runs, stats, cities, hotspots] = await Promise.all([
+    getHeatmapRuns(),
+    getMapStats(),
+    getCityBreakdown(),
+    getHotspots(),
+  ])
+
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <p className="text-[var(--text3)] text-sm">Map & hotspots — coming in M3</p>
+    // This page needs full viewport height minus the sidebar header
+    <div className="h-[calc(100vh)] md:h-screen">
+      <MapClient
+        runs={runs}
+        hotspots={hotspots}
+        stats={stats}
+        cities={cities}
+      />
     </div>
   )
 }

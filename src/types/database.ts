@@ -92,3 +92,37 @@ export interface RunWithWeather extends Run {
 export interface RunWithLaps extends Run {
   laps: Lap[]
 }
+
+// ─── Map screen types ─────────────────────────────────────────────────────────
+
+export interface HeatmapRun {
+  id: string
+  polyline: string
+  run_type: RunType | null
+  date: string
+}
+
+export interface MapStats {
+  total_runs: number
+  total_km: number
+  total_elevation_m: number
+  cities_explored: number
+  unique_routes: number
+  center_lat: number | null
+  center_lng: number | null
+}
+
+export interface CityRow {
+  city: string
+  country: string | null
+  run_count: number
+  total_km: number
+}
+
+export interface Hotspot {
+  cluster_id: number
+  run_count: number
+  lng: number
+  lat: number
+  city_name: string | null
+}

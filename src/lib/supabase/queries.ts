@@ -140,3 +140,54 @@ export async function getRunWithDetails(
   }
   return data
 }
+
+// ─── Map screen ───────────────────────────────────────────────────────────────
+
+export async function getHeatmapRuns(): Promise<
+  import('@/types/database').HeatmapRun[]
+> {
+  const { data, error } = await supabaseAdmin
+    .from('runs')
+    .select('id, polyline, run_type, date')
+    .not('polyline', 'is', null)
+    .order('date', { ascending: false })
+
+  if (error) throw new Error(`Failed to fetch heatmap runs: ${error.message}`)
+  return (data ?? []) as import('@/types/database').HeatmapRun[]
+}
+
+export async function getMapStats(): Promise<import('@/types/database').MapStats> {
+  const { data, error } = await supabaseAdmin
+    .from('runs')
+    .select('distance_m, elevation_m, city, polyline')
+
+  if (error) throw new Error(`Failed to fetch map stats: ${error.message}`)
+  const rows = data ?? []
+
+  const total_runs      = rows.length
+  const total_km        = Math.round(rows.reduce((s, r) => s + (r.distance_m ?? 0), 0) / 100) / 10
+  const total_elevation_m = rows.reduce((s, r) => s + (r.elevation_m ?? 0), 0)
+  const cities_explored = new Set(rows.map((r) => r.city).filter(Boolean)).size
+  const unique_routes   = new Set(rows.map((r) => r.polyline).filter(Boolean)).size
+
+  // Geographic center from PostGIS
+  const { data: center } = await supabaseAdmin
+    .rpc('get_map_center')
+    .single()
+
+  return {
+    total_runs,
+    total_km,
+    total_elevation_m,
+    cities_explored,
+    unique_routes,
+    center_lat: (center as { lat: number | null } | null)?.lat ?? null,
+    center_lng: (center as { lng: number | null } | null)?.lng ?? null,
+  }
+}
+
+export async function getHotspots(): Promise<import('@/types/database').Hotspot[]> {
+  const { data, error } = await supabaseAdmin.rpc('get_hotspots')
+  if (error) throw new Error(`Failed to fetch hotspots: ${error.message}`)
+  return data ?? []
+}
