@@ -44,7 +44,7 @@ export function RunDetailPanel({ run, loading, onClose }: RunDetailPanelProps) {
 
       {loading ? (
         <div className="flex items-center justify-center p-8">
-          <span className="text-[12px] text-[var(--text3)] font-jakarta">Loading…</span>
+          <span className="text-[12px] text-[var(--text3)] font-inter">Loading…</span>
         </div>
       ) : run && (
         <>
@@ -53,15 +53,15 @@ export function RunDetailPanel({ run, loading, onClose }: RunDetailPanelProps) {
             <div className="space-y-1">
               {run.run_type && (
                 <span className={[
-                  'inline-block text-[10px] px-2 py-0.5 rounded-full font-jakarta capitalize',
+                  'inline-block text-[10px] px-2 py-0.5 rounded-full font-inter capitalize',
                   TYPE_STYLE[run.run_type] ?? TYPE_STYLE.easy,
                 ].join(' ')}>
                   {run.run_type}
                 </span>
               )}
-              <p className="text-[12px] text-[var(--text2)] font-jakarta">{formatDate(run.date)}</p>
+              <p className="text-[12px] text-[var(--text2)] font-inter">{formatDate(run.date)}</p>
               {run.city && (
-                <p className="text-[11px] text-[var(--text3)] font-jakarta">
+                <p className="text-[11px] text-[var(--text3)] font-inter">
                   {run.city}{run.country ? `, ${run.country}` : ''}
                 </p>
               )}
@@ -86,10 +86,10 @@ export function RunDetailPanel({ run, loading, onClose }: RunDetailPanelProps) {
                 { icon: <IconMountain size={13} />,         label: 'Elevation', val: `${run.elevation_m} m` },
               ].map((s) => (
                 <div key={s.label} className="bg-[var(--surface2)] rounded-[7px] p-3">
-                  <div className="flex items-center gap-1 text-[var(--text3)] text-[10px] mb-1 font-jakarta">
+                  <div className="flex items-center gap-1 text-[var(--text3)] text-[10px] mb-1 font-inter">
                     {s.icon}{s.label}
                   </div>
-                  <div className="text-[13px] font-medium font-outfit text-[var(--text)]">{s.val}</div>
+                  <div className="text-[13px] font-medium font-mono text-[var(--text)]">{s.val}</div>
                 </div>
               ))}
             </div>
@@ -97,7 +97,7 @@ export function RunDetailPanel({ run, loading, onClose }: RunDetailPanelProps) {
             {/* Weather */}
             {run.weather && (
               <div>
-                <div className="flex items-center gap-1 text-[11px] text-[var(--text2)] font-jakarta mb-2">
+                <div className="flex items-center gap-1 text-[11px] text-[var(--text2)] font-inter mb-2">
                   <IconCloud size={12} /> Weather
                 </div>
                 <div className="bg-[var(--surface2)] rounded-[7px] p-3 flex flex-wrap gap-3">
@@ -109,8 +109,8 @@ export function RunDetailPanel({ run, loading, onClose }: RunDetailPanelProps) {
                     { k: 'Conditions', v: run.weather.conditions },
                   ].filter((x) => x.v).map((x) => (
                     <div key={x.k}>
-                      <div className="text-[10px] text-[var(--text3)] font-jakarta">{x.k}</div>
-                      <div className="text-[12px] font-medium font-outfit text-[var(--text)]">{x.v}</div>
+                      <div className="text-[10px] text-[var(--text3)] font-inter">{x.k}</div>
+                      <div className="text-[12px] font-medium font-mono text-[var(--text)]">{x.v}</div>
                     </div>
                   ))}
                 </div>
@@ -120,9 +120,9 @@ export function RunDetailPanel({ run, loading, onClose }: RunDetailPanelProps) {
             {/* Lap splits */}
             {run.laps.length > 0 && (
               <div>
-                <div className="text-[11px] text-[var(--text2)] font-jakarta mb-2">Lap splits</div>
+                <div className="text-[11px] text-[var(--text2)] font-inter mb-2">Lap splits</div>
                 <div className="bg-[var(--surface2)] rounded-[7px] overflow-hidden">
-                  <table className="w-full text-[11px] font-jakarta">
+                  <table className="w-full text-[11px] font-inter">
                     <thead>
                       <tr className="border-b border-[var(--border)]">
                         {['Lap', 'Dist', 'Pace', 'HR'].map((h) => (
@@ -136,9 +136,9 @@ export function RunDetailPanel({ run, loading, onClose }: RunDetailPanelProps) {
                       {run.laps.map((lap) => (
                         <tr key={lap.lap_index} className="border-b border-[var(--border)] last:border-0">
                           <td className="px-3 py-2 text-[var(--text2)]">{lap.lap_index}</td>
-                          <td className="px-3 py-2 text-right text-[var(--text)]">{fmt(lap.distance_m / 1000, 2)} km</td>
-                          <td className="px-3 py-2 text-right text-[var(--text)]">{formatPace(lap.avg_pace_s)}</td>
-                          <td className="px-3 py-2 text-right text-[var(--text)]">{lap.avg_hr ?? '—'}</td>
+                          <td className="px-3 py-2 text-right font-mono text-[var(--text)]">{fmt(lap.distance_m / 1000, 2)} km</td>
+                          <td className="px-3 py-2 text-right font-mono text-[var(--text)]">{formatPace(lap.avg_pace_s)}</td>
+                          <td className="px-3 py-2 text-right font-mono text-[var(--text)]">{lap.avg_hr ?? '—'}</td>
                         </tr>
                       ))}
                     </tbody>

@@ -18,7 +18,7 @@ const HeatmapMap = dynamic(
 function MapSkeleton() {
   return (
     <div className="w-full h-full flex items-center justify-center bg-[var(--surface2)]">
-      <span className="text-[12px] text-[var(--text3)] font-jakarta">Loading map…</span>
+      <span className="text-[12px] text-[var(--text3)] font-inter">Loading map…</span>
     </div>
   )
 }
@@ -55,7 +55,7 @@ export function MapClient({ runs, hotspots, stats, cities }: MapClientProps) {
 
           {/* Map stats */}
           <div>
-            <h2 className="text-[13px] font-medium font-outfit text-[var(--text)] mb-3">
+            <h2 className="text-[13px] font-medium font-inter text-[var(--text)] mb-3">
               Overview
             </h2>
             <MapStatsPanel stats={stats} />
@@ -65,7 +65,7 @@ export function MapClient({ runs, hotspots, stats, cities }: MapClientProps) {
 
           {/* Filters */}
           <div>
-            <h2 className="text-[13px] font-medium font-outfit text-[var(--text)] mb-3">
+            <h2 className="text-[13px] font-medium font-inter text-[var(--text)] mb-3">
               Filter
             </h2>
             <MapFilters
@@ -87,19 +87,19 @@ export function MapClient({ runs, hotspots, stats, cities }: MapClientProps) {
           <div className="bg-[var(--accent-bg)] border border-[var(--accent-border)] rounded-[10px] p-4">
             <div className="flex items-center gap-2 mb-2.5">
               <div className="w-[26px] h-[26px] bg-[var(--accent)] rounded-[6px]
-                flex items-center justify-center text-[#FAF9F6]">
+                flex items-center justify-center text-white">
                 <IconRobot size={14} />
               </div>
-              <span className="text-[13px] font-medium font-outfit text-[var(--accent)]">
+              <span className="text-[13px] font-medium font-inter text-[var(--accent)]">
                 Route insight
               </span>
             </div>
-            <p className="text-[12px] text-[var(--text2)] font-jakarta leading-[1.65]">
+            <p className="text-[12px] text-[var(--text2)] font-inter leading-[1.65]">
               AI route analysis will be available in M5. It will identify your most
               frequent routes, flag high-fatigue patterns, and suggest new areas
               to explore.
             </p>
-            <button className="mt-2.5 text-[12px] text-[var(--accent)] font-jakarta
+            <button className="mt-2.5 text-[12px] text-[var(--accent)] font-inter
               flex items-center gap-1 opacity-50 cursor-not-allowed">
               Full analysis <IconArrowRight size={12} />
             </button>

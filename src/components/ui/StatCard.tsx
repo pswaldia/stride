@@ -23,11 +23,11 @@ function TrendBadge({ pct }: { pct: number }) {
 export function StatCard({ icon, label, value, unit, trend }: StatCardProps) {
   return (
     <div className="bg-[var(--surface)] border border-[var(--border)] rounded-[10px] p-4">
-      <div className="flex items-center gap-1 text-[var(--text3)] text-[11px] mb-2 font-jakarta">
+      <div className="flex items-center gap-1 text-[var(--text3)] text-[11px] mb-2 font-inter">
         {icon}
         {label}
       </div>
-      <div className="text-[var(--text)] text-[22px] font-medium font-outfit tracking-tight leading-none">
+      <div className="text-[var(--text)] text-[22px] font-medium font-mono tracking-tight leading-none">
         {value}
         <span className="text-[var(--text3)] text-[12px] font-normal"> {unit}</span>
       </div>

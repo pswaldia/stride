@@ -1,5 +1,5 @@
 import { supabaseAdmin } from './client'
-import type { Run, RunWithWeather, RunWithLaps } from '@/types/database'
+import type { Run, RunWithWeather, RunWithLaps, TrainingLoad } from '@/types/database'
 
 export async function getRuns(options?: {
   limit?: number
@@ -190,4 +190,60 @@ export async function getHotspots(): Promise<import('@/types/database').Hotspot[
   const { data, error } = await supabaseAdmin.rpc('get_hotspots')
   if (error) throw new Error(`Failed to fetch hotspots: ${error.message}`)
   return data ?? []
+}
+
+// ─── Training load ────────────────────────────────────────────────────────────
+
+export async function upsertTrainingLoadBatch(
+  rows: Array<Omit<TrainingLoad, 'id' | 'updated_at'>>
+): Promise<void> {
+  const { error } = await supabaseAdmin
+    .from('training_load')
+    .upsert(rows, { onConflict: 'date' })
+
+  if (error) throw new Error(`Failed to upsert training load: ${error.message}`)
+}
+
+export async function getTrainingLoadHistory(days: number = 120): Promise<TrainingLoad[]> {
+  const from = new Date()
+  from.setDate(from.getDate() - days)
+  const fromStr = from.toISOString().substring(0, 10)
+
+  const { data, error } = await supabaseAdmin
+    .from('training_load')
+    .select('*')
+    .gte('date', fromStr)
+    .order('date', { ascending: true })
+
+  if (error) throw new Error(`Failed to fetch training load history: ${error.message}`)
+  return data ?? []
+}
+
+// ─── Settings ─────────────────────────────────────────────────────────────────
+
+export async function getSettings(): Promise<import('@/types/database').Settings | null> {
+  const { data, error } = await supabaseAdmin
+    .from('settings')
+    .select('*')
+    .single()
+
+  if (error) {
+    if (error.code === 'PGRST116') return null
+    throw new Error(`Failed to fetch settings: ${error.message}`)
+  }
+  return data
+}
+
+export async function upsertSettings(
+  updates: Partial<Omit<import('@/types/database').Settings, 'id' | 'updated_at'>>
+): Promise<import('@/types/database').Settings> {
+  const { data, error } = await supabaseAdmin
+    .from('settings')
+    .update({ ...updates, updated_at: new Date().toISOString() })
+    .eq('id', (await supabaseAdmin.from('settings').select('id').single()).data?.id)
+    .select()
+    .single()
+
+  if (error) throw new Error(`Failed to update settings: ${error.message}`)
+  return data
 }

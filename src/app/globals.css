@@ -2,64 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500&display=swap');
-
-/* ─── Chalk & Ember — Light mode (default) ─────────────────────────── */
+/* ─── Slate & Cobalt — Light mode (default) ────────────────────────── */
 :root {
-  --bg: #FAF9F6;
-  --surface: #F0EDE6;
-  --surface2: #E8E4DB;
-  --border: #DDD9D0;
-  --border2: #C8C3B8;
-  --text: #1A1A1A;
-  --text2: #6B6560;
-  --text3: #A09890;
-  --accent: #C0392B;
-  --accent2: #E74C3C;
-  --accent-bg: #C0392B12;
-  --accent-border: #C0392B30;
+  --bg: #F4F6FA;
+  --surface: #EAEEF5;
+  --surface2: #DDE3EE;
+  --border: #CDD4E2;
+  --border2: #B0BCCE;
+  --text: #0F1117;
+  --text2: #4A5568;
+  --text3: #8896AA;
+  --accent: #2F6FED;
+  --accent2: #5B8FF9;
+  --accent-bg: #2F6FED12;
+  --accent-border: #2F6FED30;
 
   /* run type */
-  --easy: #2E7D32;
-  --easy-bg: #2E7D3215;
-  --tempo: #B45309;
-  --tempo-bg: #B4530915;
-  --long: #C0392B;
-  --long-bg: #C0392B15;
+  --easy: #0F6E56;
+  --easy-bg: #0F6E5615;
+  --tempo: #BA7517;
+  --tempo-bg: #BA751715;
+  --long: #2F6FED;
+  --long-bg: #2F6FED15;
   --race: #7C3AED;
   --race-bg: #7C3AED15;
 
   /* training load */
-  --ctl-color: #185FA5;
-  --atl-color: #B45309;
-  --tsb-color: #2E7D32;
+  --ctl-color: #2F6FED;
+  --atl-color: #BA7517;
+  --tsb-color: #0F6E56;
 
   /* fonts */
-  --font-outfit: 'Outfit', system-ui, sans-serif;
-  --font-jakarta: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-inter: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 /* ─── Dark mode ────────────────────────────────────────────────────── */
 [data-theme='dark'] {
-  --bg: #1A120E;
-  --surface: #251810;
-  --surface2: #2E1E14;
-  --border: #3A2418;
-  --border2: #4A3020;
-  --text: #F5EDE6;
-  --text2: #A08070;
-  --text3: #604030;
-  --accent: #E74C3C;
-  --accent2: #FF6B5B;
-  --accent-bg: #E74C3C12;
-  --accent-border: #E74C3C30;
+  --bg: #0F1117;
+  --surface: #181C27;
+  --surface2: #1E2436;
+  --border: #2A3040;
+  --border2: #374055;
+  --text: #E8ECF4;
+  --text2: #8896AA;
+  --text3: #3A4456;
+  --accent: #5B8FF9;
+  --accent2: #85AEFF;
+  --accent-bg: #5B8FF912;
+  --accent-border: #5B8FF930;
 
-  --easy: #4CAF50;
-  --easy-bg: #4CAF5015;
+  --easy: #1D9E75;
+  --easy-bg: #1D9E7515;
   --tempo: #EF9F27;
   --tempo-bg: #EF9F2715;
-  --long: #E74C3C;
-  --long-bg: #E74C3C15;
+  --long: #5B8FF9;
+  --long-bg: #5B8FF915;
   --race: #A78BFA;
   --race-bg: #A78BFA15;
 }
@@ -77,7 +75,7 @@ html {
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: var(--font-jakarta);
+  font-family: var(--font-inter);
   font-size: 18px;
   line-height: 1.5;
 }

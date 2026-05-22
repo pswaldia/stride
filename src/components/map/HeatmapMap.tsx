@@ -92,16 +92,16 @@ const heatmapLayer: LayerProps = {
   paint: {
     'heatmap-weight':    1,
     'heatmap-intensity': ['interpolate', ['linear'], ['zoom'], 0, 1, 12, 4],
-    'heatmap-radius':    ['interpolate', ['linear'], ['zoom'], 0, 1, 12, 6, 16, 8],
+    'heatmap-radius':    ['interpolate', ['linear'], ['zoom'], 0, 1, 12, 3, 16, 5],
     'heatmap-opacity':   0.85,
     'heatmap-color': [
       'interpolate', ['linear'], ['heatmap-density'],
-      0,    'rgba(192,57,43,0)',
-      0.15, 'rgba(192,57,43,0.25)',
-      0.4,  'rgba(192,57,43,0.55)',
-      0.65, 'rgba(231,76,60,0.75)',
-      0.85, 'rgba(231,76,60,0.9)',
-      1,    'rgba(255,107,91,1)',
+      0,    'rgba(47,111,237,0)',
+      0.15, 'rgba(47,111,237,0.25)',
+      0.4,  'rgba(47,111,237,0.55)',
+      0.65, 'rgba(91,143,249,0.75)',
+      0.85, 'rgba(91,143,249,0.9)',
+      1,    'rgba(133,174,255,1)',
     ],
   },
 }
@@ -175,14 +175,16 @@ export function HeatmapMap({
           <div
             onMouseEnter={() => handlePinEnter(h)}
             onMouseLeave={handlePinLeave}
-            className="rounded-full border-2 border-[#FAF9F6] flex items-center justify-center
-              font-outfit font-medium text-[#FAF9F6] cursor-pointer
-              shadow-[0_2px_8px_rgba(0,0,0,0.4)] hover:scale-110 transition-transform"
+            className="rounded-full flex items-center justify-center
+              font-inter font-medium cursor-pointer
+              shadow-[0_2px_8px_rgba(0,0,0,0.5)] hover:scale-110 transition-transform"
             style={{
               width:           PIN_SIZES[idx] ?? 16,
               height:          PIN_SIZES[idx] ?? 16,
               fontSize:        Math.max((PIN_SIZES[idx] ?? 16) * 0.45, 8),
               backgroundColor: 'var(--accent)',
+              color:           '#ffffff',
+              border:          '2px solid #ffffff',
             }}
           >
             {idx + 1}
@@ -203,10 +205,10 @@ export function HeatmapMap({
         >
           <div className="bg-[var(--surface)] border border-[var(--border)] rounded-[8px]
             px-3 py-2 text-[12px] shadow-md min-w-[120px]">
-            <div className="font-medium font-outfit text-[var(--text)]">
+            <div className="font-medium font-inter text-[var(--text)]">
               {hoveredPin.city_name ?? 'Unknown location'}
             </div>
-            <div className="text-[var(--text3)] font-jakarta mt-0.5">
+            <div className="text-[var(--text3)] font-inter mt-0.5">
               {hoveredPin.run_count} runs
             </div>
           </div>

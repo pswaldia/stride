@@ -35,9 +35,9 @@ function Pill<T extends string>({
     <button
       onClick={() => onClick(value)}
       className={[
-        'px-2.5 py-1 rounded-full text-[11px] font-jakarta transition-colors whitespace-nowrap',
+        'px-2.5 py-1 rounded-full text-[11px] font-inter transition-colors whitespace-nowrap',
         active
-          ? 'bg-[var(--accent)] text-[#FAF9F6]'
+          ? 'bg-[var(--accent)] text-white'
           : 'bg-[var(--surface2)] text-[var(--text2)] hover:bg-[var(--border2)] hover:text-[var(--text)]',
       ].join(' ')}
     >
@@ -50,7 +50,7 @@ export function MapFilters({ runType, timeRange, onRunType, onTimeRange }: MapFi
   return (
     <div className="space-y-3">
       <div>
-        <div className="text-[10px] text-[var(--text3)] font-jakarta mb-1.5 uppercase tracking-wide">
+        <div className="text-[10px] text-[var(--text3)] font-inter mb-1.5 uppercase tracking-wide">
           Run type
         </div>
         <div className="flex flex-wrap gap-1.5">
@@ -67,7 +67,7 @@ export function MapFilters({ runType, timeRange, onRunType, onTimeRange }: MapFi
       </div>
 
       <div>
-        <div className="text-[10px] text-[var(--text3)] font-jakarta mb-1.5 uppercase tracking-wide">
+        <div className="text-[10px] text-[var(--text3)] font-inter mb-1.5 uppercase tracking-wide">
           Time range
         </div>
         <div className="flex flex-wrap gap-1.5">

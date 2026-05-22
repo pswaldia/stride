@@ -27,11 +27,11 @@ export function MapStatsPanel({ stats }: MapStatsPanelProps) {
       {items.map((item) => (
         <div key={item.label}
           className="bg-[var(--surface2)] rounded-[8px] p-3">
-          <div className="flex items-center gap-1 text-[var(--text3)] text-[10px] font-jakarta mb-1">
+          <div className="flex items-center gap-1 text-[var(--text3)] text-[10px] font-inter mb-1">
             {item.icon}
             {item.label}
           </div>
-          <div className="text-[var(--text)] text-[16px] font-medium font-outfit tracking-tight leading-none">
+          <div className="text-[var(--text)] text-[16px] font-medium font-mono tracking-tight leading-none">
             {item.value}
             <span className="text-[var(--text3)] text-[10px] font-normal"> {item.unit}</span>
           </div>

@@ -130,14 +130,14 @@ const styles = /* css */ `
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #FAF9F6;
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    background: #F4F6FA;
+    font-family: 'Inter', system-ui, sans-serif;
     padding: 24px;
   }
 
   .card {
-    background: #F0EDE6;
-    border: 1px solid #DDD9D0;
+    background: #EAEEF5;
+    border: 1px solid #CDD4E2;
     border-radius: 10px;
     padding: 32px;
     max-width: 520px;
@@ -154,35 +154,35 @@ const styles = /* css */ `
     margin-bottom: 14px;
   }
 
-  .success .badge { background: #2E7D3215; color: #2E7D32; }
+  .success .badge { background: #0F6E5615; color: #0F6E56; }
   .error .badge   { display: none; }
 
   h1 {
-    font-family: 'Outfit', system-ui, sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
     font-size: 18px;
     font-weight: 500;
-    color: #1A1A1A;
+    color: #0F1117;
     margin-bottom: 8px;
   }
 
   .message {
     font-size: 13px;
-    color: #6B6560;
+    color: #4A5568;
     line-height: 1.6;
     margin-bottom: 20px;
   }
 
   code {
-    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
     font-size: 12px;
-    background: #E8E4DB;
+    background: #DDE3EE;
     padding: 1px 5px;
     border-radius: 4px;
-    color: #1A1A1A;
+    color: #0F1117;
   }
 
   .env-block {
-    border: 1px solid #DDD9D0;
+    border: 1px solid #CDD4E2;
     border-radius: 7px;
     overflow: hidden;
     margin-bottom: 16px;
@@ -192,15 +192,15 @@ const styles = /* css */ `
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #E8E4DB;
+    background: #DDE3EE;
     padding: 8px 14px;
     font-size: 11px;
-    color: #6B6560;
+    color: #4A5568;
   }
 
   .env-header button {
-    background: #C0392B;
-    color: #FAF9F6;
+    background: #2F6FED;
+    color: #ffffff;
     border: none;
     border-radius: 5px;
     padding: 3px 10px;
@@ -208,22 +208,22 @@ const styles = /* css */ `
     cursor: pointer;
   }
 
-  .env-header button:hover { background: #E74C3C; }
+  .env-header button:hover { background: #5B8FF9; }
 
   pre {
     padding: 14px;
-    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
     font-size: 12px;
-    color: #1A1A1A;
+    color: #0F1117;
     line-height: 1.8;
     white-space: pre-wrap;
     word-break: break-all;
-    background: #FAF9F6;
+    background: #F4F6FA;
   }
 
   .note {
     font-size: 11px;
-    color: #A09890;
+    color: #8896AA;
     line-height: 1.6;
     margin-top: 4px;
   }
@@ -231,13 +231,13 @@ const styles = /* css */ `
   .btn {
     display: inline-block;
     margin-top: 16px;
-    background: #C0392B;
-    color: #FAF9F6;
+    background: #2F6FED;
+    color: #ffffff;
     text-decoration: none;
     font-size: 13px;
     padding: 8px 18px;
     border-radius: 6px;
   }
 
-  .btn:hover { background: #E74C3C; }
+  .btn:hover { background: #5B8FF9; }
 `

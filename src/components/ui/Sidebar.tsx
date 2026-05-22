@@ -31,7 +31,7 @@ export function Sidebar() {
       {/* Logo */}
       <div className="flex items-center gap-2 px-2.5 mb-5">
         <IconRun size={17} className="text-[var(--accent)]" />
-        <span className="text-[15px] font-medium font-outfit text-[var(--text)] tracking-tight">
+        <span className="text-[15px] font-medium font-inter text-[var(--text)] tracking-tight">
           Stride
         </span>
       </div>
@@ -45,7 +45,7 @@ export function Sidebar() {
               key={href}
               href={href}
               className={[
-                'flex items-center gap-2 px-2.5 py-2 rounded-[7px] text-[12px] font-jakarta transition-colors',
+                'flex items-center gap-2 px-2.5 py-2 rounded-[7px] text-[12px] font-inter transition-colors',
                 active
                   ? 'bg-[var(--accent-bg)] text-[var(--accent)]'
                   : 'text-[var(--text3)] hover:bg-[var(--surface2)] hover:text-[var(--text2)]',
@@ -79,7 +79,7 @@ export function BottomTabBar() {
             key={href}
             href={href}
             className={[
-              'flex flex-col items-center gap-0.5 px-2 py-1 rounded-[6px] text-[10px] font-jakarta transition-colors',
+              'flex flex-col items-center gap-0.5 px-2 py-1 rounded-[6px] text-[10px] font-inter transition-colors',
               active ? 'text-[var(--accent)]' : 'text-[var(--text3)]',
             ].join(' ')}
           >

@@ -110,8 +110,8 @@ export default async function DashboardPage() {
     <div className="p-6 md:p-7 space-y-5">
 
       <div>
-        <h1 className="text-[18px] font-medium font-outfit text-[var(--text)]">Dashboard</h1>
-        <p className="text-[12px] text-[var(--text3)] font-jakarta mt-0.5">Your training at a glance</p>
+        <h1 className="text-[18px] font-medium font-inter text-[var(--text)]">Dashboard</h1>
+        <p className="text-[12px] text-[var(--text3)] font-inter mt-0.5">Your training at a glance</p>
       </div>
 
       {/* Stats bar */}

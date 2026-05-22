@@ -21,7 +21,7 @@ export function ThemeToggle() {
     <button
       onClick={toggle}
       className="flex items-center gap-2 w-full px-2.5 py-2 rounded-[7px] text-[12px]
-        font-jakarta text-[var(--text3)] hover:bg-[var(--surface2)] hover:text-[var(--text2)]
+        font-inter text-[var(--text3)] hover:bg-[var(--surface2)] hover:text-[var(--text2)]
         transition-colors"
     >
       {dark ? <IconSun size={15} /> : <IconMoon size={15} />}

@@ -51,7 +51,7 @@ export function TrainingCalendar({ runs, selectedId, onSelect }: TrainingCalenda
     <div className="bg-[var(--surface)] border border-[var(--border)] rounded-[10px] p-4">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <span className="text-[13px] font-medium font-outfit text-[var(--text)]">
+        <span className="text-[13px] font-medium font-inter text-[var(--text)]">
           {monthLabel}
         </span>
         <div className="flex items-center gap-0.5">
@@ -73,7 +73,7 @@ export function TrainingCalendar({ runs, selectedId, onSelect }: TrainingCalenda
       {/* Day-of-week headers */}
       <div className="grid grid-cols-7 mb-1">
         {DAYS.map((d) => (
-          <div key={d} className="text-center text-[10px] text-[var(--text3)] font-jakarta py-1">
+          <div key={d} className="text-center text-[10px] text-[var(--text3)] font-inter py-1">
             {d}
           </div>
         ))}
@@ -107,7 +107,7 @@ export function TrainingCalendar({ runs, selectedId, onSelect }: TrainingCalenda
               ].join(' ')}
             >
               <span className={[
-                'text-[11px] leading-none font-jakarta',
+                'text-[11px] leading-none font-inter',
                 isToday ? 'text-[var(--accent)] font-medium' : 'text-[var(--text)]',
               ].join(' ')}>
                 {day}
@@ -128,7 +128,7 @@ export function TrainingCalendar({ runs, selectedId, onSelect }: TrainingCalenda
         {Object.entries(DOT_COLOR).map(([type, cls]) => (
           <div key={type} className="flex items-center gap-1">
             <div className={`w-[6px] h-[6px] rounded-full ${cls}`} />
-            <span className="text-[10px] text-[var(--text3)] font-jakarta capitalize">{type}</span>
+            <span className="text-[10px] text-[var(--text3)] font-inter capitalize">{type}</span>
           </div>
         ))}
       </div>

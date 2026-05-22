@@ -10,10 +10,10 @@ export function CityPanel({ cities }: CityPanelProps) {
   return (
     <div>
       <div className="flex items-center justify-between mb-3">
-        <span className="text-[13px] font-medium font-outfit text-[var(--text)]">
+        <span className="text-[13px] font-medium font-inter text-[var(--text)]">
           Cities
         </span>
-        <span className="text-[11px] text-[var(--text3)] font-jakarta">
+        <span className="text-[11px] text-[var(--text3)] font-inter">
           {cities.length} {cities.length === 1 ? 'city' : 'cities'}
         </span>
       </div>
@@ -23,25 +23,25 @@ export function CityPanel({ cities }: CityPanelProps) {
           <div key={`${c.city}-${c.country}`}>
             <div className="flex items-center justify-between mb-1">
               <div className="flex items-center gap-2 min-w-0">
-                <span className="text-[10px] text-[var(--text3)] font-jakarta w-4 shrink-0">
+                <span className="text-[10px] text-[var(--text3)] font-inter w-4 shrink-0">
                   {idx + 1}
                 </span>
                 <div className="min-w-0">
-                  <span className="text-[12px] text-[var(--text)] font-jakarta truncate block">
+                  <span className="text-[12px] text-[var(--text)] font-inter truncate block">
                     {c.city}
                   </span>
                   {c.country && (
-                    <span className="text-[10px] text-[var(--text3)] font-jakarta">
+                    <span className="text-[10px] text-[var(--text3)] font-inter">
                       {c.country}
                     </span>
                   )}
                 </div>
               </div>
               <div className="text-right shrink-0 ml-2">
-                <div className="text-[12px] font-medium font-outfit text-[var(--text)]">
+                <div className="text-[12px] font-medium font-mono text-[var(--text)]">
                   {c.total_km.toFixed(1)} km
                 </div>
-                <div className="text-[10px] text-[var(--text3)] font-jakarta">
+                <div className="text-[10px] text-[var(--text3)] font-inter">
                   {c.run_count} {c.run_count === 1 ? 'run' : 'runs'}
                 </div>
               </div>
