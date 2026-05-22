@@ -107,7 +107,7 @@ export default async function DashboardPage() {
   ]
 
   return (
-    <div className="p-6 md:p-7 max-w-[1100px] space-y-5">
+    <div className="p-6 md:p-7 space-y-5">
 
       <div>
         <h1 className="text-[18px] font-medium font-outfit text-[var(--text)]">Dashboard</h1>
